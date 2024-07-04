@@ -48,7 +48,6 @@ def logout_request(request):
 
 @csrf_exempt
 def registration(request):
-    context = {}
 
     data = json.loads(request.body)
     username = data['userName']
@@ -57,7 +56,7 @@ def registration(request):
     last_name = data['lastName']
     email = data['email']
     username_exist = False
-    email_exist = False
+
     try:
 
         # Check if user already exists
@@ -137,7 +136,7 @@ def get_dealer_reviews(request, dealer_id):
 
 
 def add_review(request):
-    if request.user.is_anonymous == False:
+    if not request.user.is_anonymous:
         data = json.loads(request.body)
         try:
             post_review(data)
